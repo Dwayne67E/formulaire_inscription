@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire d'Inscription</title>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h2>Inscription</h2>
+    <form id="registrationForm" action="traitement.php" method="POST">
+        <div>
+            <label for="username">Nom d'utilisateur :</label>
+            <input type="text" id="username" name="username" required>
+            <span id="usernameError" class="error"></span>
+        </div>
+        <div>
+            <label for="email">Email :</label>
+            <input type="email" id="email" name="email" required>
+            <span id="emailError" class="error"></span>
+        </div>
+        <div>
+            <label for="password">Mot de passe :</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div>
+            <label for="confirm_password">Confirmer le mot de passe :</label>
+            <input type="password" id="confirm_password" name="confirm_password" required>
+            <span id="passwordError" class="error"></span>
+        </div>
+        <button type="submit">S'inscrire</button>
+    </form>
+
+    <script>
+        var usernameInput = document.getElementById('username');
+        var emailInput = document.getElementById('email');
+        var passwordInput = document.getElementById('password');
+        var confirmPasswordInput = document.getElementById('confirm_password');
+        var usernameError = document.getElementById('usernameError');
+        var emailError = document.getElementById('emailError');
+        var passwordError = document.getElementById('passwordError');
+
+        usernameInput.addEventListener('blur', function() {
+            if (usernameInput.value.trim().length <= 1 || usernameInput.value.includes(' ')) {
+                usernameError.textContent = "Le nom d'utilisateur doit avoir plus d'un caractère et ne doit pas contenir d'espaces.";
+            } else {
+                usernameError.textContent = "";
+            }
+        });
+
+        emailInput.addEventListener('blur', function() {
+            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(emailInput.value)) {
+                emailError.textContent = "Veuillez entrer une adresse email valide.";
+            } else {
+                emailError.textContent = "";
+            }
+        });
+
+        confirmPasswordInput.addEventListener('blur', function() {
+            if (passwordInput.value !== confirmPasswordInput.value) {
+                passwordError.textContent = "Les mots de passe ne correspondent pas.";
+            } else {
+                passwordError.textContent = "";
+            }
+        });
+    </script>
+</body>
+</html>
